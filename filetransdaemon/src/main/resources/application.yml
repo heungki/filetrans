@@ -1,0 +1,16 @@
+spring:    
+  kafka:    
+    bootstrap-servers: localhost:9092
+    template:
+      filetrans-topic: filetrans-topic
+    consumer:    
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer   
+      enable-auto-commit: true
+      max-poll-records: 10
+      
+      filetrans-group-id: filetrans-group             
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
