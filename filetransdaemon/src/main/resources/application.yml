@@ -1,3 +1,10 @@
+logging:
+  level:
+    root: INFO
+    com.example.ayoteralab.main: DEBUG
+  file:
+    path: logs
+
 spring:    
   kafka:    
     bootstrap-servers: localhost:9092
@@ -14,3 +21,12 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      
+sftp:
+  host: 127.0.0.1
+  port: 22
+  username: bizftp
+  password: bizftp
+  sessionTimeout: 15000
+  channelTimeout: 15000
+      

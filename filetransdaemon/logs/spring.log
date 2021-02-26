@@ -1,0 +1,23 @@
+2021-02-25 00:42:08.644  INFO 9800 --- [restartedMain] c.f.FiletransdaemonApplication           : Starting FiletransdaemonApplication using Java 1.8.0_121 on DESKTOP-R1TA287 with PID 9800 (C:\Users\kimhh\git\filetrans\filetransdaemon\bin\main started by kimhh in C:\Users\kimhh\git\filetrans\filetransdaemon)
+2021-02-25 00:42:08.651  INFO 9800 --- [restartedMain] c.f.FiletransdaemonApplication           : No active profile set, falling back to default profiles: default
+2021-02-25 00:42:08.705  INFO 9800 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-02-25 00:42:09.320  INFO 9800 --- [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2021-02-25 00:42:09.389  INFO 9800 --- [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'taskScheduler' has been explicitly defined. Therefore, a default ThreadPoolTaskScheduler will be created.
+2021-02-25 00:42:09.392  INFO 9800 --- [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2021-02-25 00:42:09.439  INFO 9800 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.integration.config.IntegrationManagementConfiguration' of type [org.springframework.integration.config.IntegrationManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-02-25 00:42:09.459  INFO 9800 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'integrationChannelResolver' of type [org.springframework.integration.support.channel.BeanFactoryChannelResolver] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-02-25 00:42:09.460  INFO 9800 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'integrationDisposableAutoCreatedBeans' of type [org.springframework.integration.config.annotation.Disposables] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-02-25 00:42:09.801  INFO 9800 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-02-25 00:42:09.869  INFO 9800 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-02-25 00:42:09.915  INFO 9800 --- [restartedMain] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2021-02-25 00:42:09.916  INFO 9800 --- [restartedMain] o.s.i.channel.PublishSubscribeChannel    : Channel 'application.errorChannel' has 1 subscriber(s).
+2021-02-25 00:42:09.916  INFO 9800 --- [restartedMain] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2021-02-25 00:42:09.926  INFO 9800 --- [restartedMain] c.f.FiletransdaemonApplication           : Started FiletransdaemonApplication in 1.759 seconds (JVM running for 3.161)
+2021-02-25 00:42:09.928  INFO 9800 --- [restartedMain] com.filetransdaemon.aestest              : Start encrypt file
+2021-02-25 00:42:10.601  INFO 9800 --- [restartedMain] com.filetransdaemon.aestest              : encrypt file result: true
+2021-02-25 00:42:10.601  INFO 9800 --- [restartedMain] com.filetransdaemon.aestest              : Start decrypt file
+2021-02-25 00:42:10.603  INFO 9800 --- [restartedMain] com.filetransdaemon.aestest              : decrypt file result: true
+2021-02-25 00:42:10.606  INFO 9800 --- [SpringContextShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2021-02-25 00:42:10.607  INFO 9800 --- [SpringContextShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'application.errorChannel' has 0 subscriber(s).
+2021-02-25 00:42:10.607  INFO 9800 --- [SpringContextShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2021-02-25 00:42:10.607  INFO 9800 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'

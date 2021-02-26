@@ -1,6 +1,15 @@
+logging:
+  level:
+    root: INFO
+    com.example.ayoteralab.main: DEBUG
+  file:
+    path: logs
+
 spring:    
   kafka:    
     bootstrap-servers: localhost:9092
+    sessiontimeout: 200000
+    connectiontimeout: 15000
     template:
       filetrans-topic: filetrans-topic
     consumer:    
@@ -14,3 +23,4 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      

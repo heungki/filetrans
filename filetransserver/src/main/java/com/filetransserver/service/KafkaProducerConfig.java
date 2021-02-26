@@ -12,19 +12,15 @@ import org.springframework.kafka.core.ProducerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-@EnableKafka
 @Configuration
 public class KafkaProducerConfig {
-    @Value("${spring.kafka.bootstrap-servers}")
+	@Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServer;
-
     @Value("${spring.kafka.producer.key-serializer}")
     private String keyDeSerializer;
-
     @Value("${spring.kafka.producer.value-serializer}")
     private String valueDeSerializer;
-
-
+    
     @Bean
     public ProducerFactory<String, String> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
@@ -33,7 +29,7 @@ public class KafkaProducerConfig {
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueDeSerializer);
         return new DefaultKafkaProducerFactory<>(configProps);
     }
-
+    
     @Bean
     public KafkaTemplate<String, String> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());

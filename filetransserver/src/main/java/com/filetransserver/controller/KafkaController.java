@@ -1,6 +1,6 @@
 package com.filetransserver.controller;
 
-import com.filetransserver.service.KafkaProducer;
+import com.filetransserver.service.KafkaProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class KafkaController {
-    private final KafkaProducer producer;
+    private final KafkaProducerService producer;
 
     @Autowired
-    KafkaController(KafkaProducer producer) {
+    KafkaController(KafkaProducerService producer) {
         this.producer = producer;
     }
 

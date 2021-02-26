@@ -9,10 +9,10 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 jar {
-	baseName = 'filetransserver'
+	baseName = 'filetransdaemon'
 	version = '${version}'
 	manifest {
-		attributes 'Main-Class': 'com.filetransserver.FiletransserverApplication'	
+		attributes 'Main-Class': 'com.filetransdaemon.FiletransdaemonApplication'	
 	}
 	from {
 		configurations.compile.collect {
@@ -31,13 +31,19 @@ dependencies {
 	/* kafka */
     implementation 'org.springframework.kafka:spring-kafka'
 	/* web */
-	//implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	/* h2 */
 	//runtime 'com.h2database:h2'
+	/* sftp */
+	implementation group: 'org.springframework.integration', name: 'spring-integration-sftp'
+	/* AES */	
+	implementation fileTree(dir: 'libs', include: ['*.jar']) 
+	compile 'commons-codec:commons-codec:1.15'
+	
 	
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'	
-}
+}	
 
 test {
 	useJUnitPlatform()
