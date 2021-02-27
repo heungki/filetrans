@@ -14,12 +14,16 @@ import org.apache.kafka.clients.admin.DeleteConsumerGroupsResult;
 import org.apache.kafka.clients.admin.DeleteTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.common.KafkaFuture;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaTopicService {
+	private static Logger logger = LoggerFactory.getLogger(KafkaConsumerService.class);
+	
 	@Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServer;
 	@Value("${spring.kafka.sessiontimeout}")
@@ -36,8 +40,6 @@ public class KafkaTopicService {
 	    AdminClient client = AdminClient.create(properties);
 	    CreateTopicsResult    result = client.createTopics(Arrays.asList(
 	                new NewTopic(topicname, 1, (short) 1)
-	                //new NewTopic("global-id-topic", 1, (short) 1),
-	                //new NewTopic("snapshot-topic", 1, (short) 1)
 	        ));
 	    
 	    //result.all().get();

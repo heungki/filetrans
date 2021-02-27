@@ -1,4 +1,4 @@
-package com.filetransserver.service;
+package com.filetransdaemon.service;
 
 import java.util.Properties;
 import java.util.concurrent.Future;
@@ -20,11 +20,12 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
-import com.filetransserver.config.KafkaTopicConfig;
+import com.filetransdaemon.config.KafkaTopicConfig;
+import com.filetransdaemon.service.KafkaProducerService;
 
 @Service
-public class KafkaProducerService {  
-	private static Logger logger = LoggerFactory.getLogger(KafkaProducerService.class);
+public class KafkaProducerService {    
+private static Logger logger = LoggerFactory.getLogger(KafkaProducerService.class);
 	
 	ApplicationContext ctx = new AnnotationConfigApplicationContext(KafkaTopicConfig.class);
 	
@@ -66,5 +67,4 @@ public class KafkaProducerService {
 	    
 	    return result;
 	}
-       
 }

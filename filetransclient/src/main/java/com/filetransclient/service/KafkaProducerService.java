@@ -1,4 +1,4 @@
-package com.filetransserver.service;
+package com.filetransclient.service;
 
 import java.util.Properties;
 import java.util.concurrent.Future;
@@ -20,22 +20,23 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
-import com.filetransserver.config.KafkaTopicConfig;
+import com.filetransclient.controller.FileTransController;
+import com.filetransclient.config.KafkaTopicConfig;
 
 @Service
-public class KafkaProducerService {  
-	private static Logger logger = LoggerFactory.getLogger(KafkaProducerService.class);
+public class KafkaProducerService {    
+	private Logger logger = LoggerFactory.getLogger(KafkaProducerService.class);
 	
 	ApplicationContext ctx = new AnnotationConfigApplicationContext(KafkaTopicConfig.class);
 	
 	@Autowired
-    private final KafkaTemplate<String, String> kafkaTemplate;	
-	
+    private final KafkaTemplate<String, String> kafkaTemplate;
+   
     public KafkaProducerService(KafkaTemplate kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
-    
-	public RecordMetadata sendMessage(String topicname, String ftmjson) throws Exception {		
+
+    public RecordMetadata sendMessage(String topicname, String ftmjson) throws Exception {		
 		Properties properties = new Properties();
 		properties.put("bootstrap.servers", (String)ctx.getBean("bootstrapServer"));
 	    properties.put("key.serializer", (String)ctx.getBean("keyserializer"));
@@ -66,5 +67,6 @@ public class KafkaProducerService {
 	    
 	    return result;
 	}
-       
+    
+    
 }

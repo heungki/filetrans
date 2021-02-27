@@ -18,13 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class KafkaController {
-    private final KafkaProducerService producer;
-
-    @Autowired
-    KafkaController(KafkaProducerService producer) {
-        this.producer = producer;
-    }
+public class FileTransController {
     
     @Autowired
     private ServerInfoRepository serverInfoRepository;    
@@ -32,18 +26,30 @@ public class KafkaController {
     private TransInfoRepository transInfoRepository;    
     @Autowired
     private TransLogRepository translogRepository;
-    
-    // filetrans-topic으로 message send 테스트
-    @RequestMapping(method = RequestMethod.GET, path = "/topictest")
-    String send() {
-    	try {
-			producer.sendMessage("filetrans-topic", "filetrans -> test message");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	//producer.sendMessage("company-jjeaby-topic", "message key company", "company -> jjeaby message");
-        return "Kafka Produce!!!";
+           
+	// 서버 리스트 조회
+	@RequestMapping("/serverinfo") 
+	public List<Server_Info> getServerInfo() {
+		return serverInfoRepository.findAll(); 	 
+	}
+	
+	// 서버ID로 서버정보 조회	
+	@RequestMapping("/serverinfo/{serverid}")
+	public Server_Info getServerInfoByserverid(@PathVariable("serverid") String server_id) {
+		return serverInfoRepository.findById(server_id).get(); 
+	}
+	
+    // 송신 정보 조회
+    @RequestMapping("/transinfo")
+    public List<Trans_Info> getTransInfo() {
+        return transInfoRepository.findAll();
     }
+    
+    // 송신 로그 조회   
+    @RequestMapping("/translog")
+    public List<Trans_Log> getTransLog() {
+        return translogRepository.findAll();
+    }
+    
 
 }

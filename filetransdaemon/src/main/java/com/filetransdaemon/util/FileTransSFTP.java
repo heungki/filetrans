@@ -17,32 +17,37 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 
-@Service
-public class FileTrans{
-	private Logger logger = LoggerFactory.getLogger(FileTrans.class);
-	
-	@Value("${sftp.host}")
+public class FileTransSFTP{
+	private Logger logger = LoggerFactory.getLogger(FileTransSFTP.class);
+
 	private String host;
-	
-	@Value("${sftp.port}")
+
 	private Integer port;
-	
-	@Value("${sftp.username}")
+
 	private String username;
-	
-	@Value("${sftp.password}")
+
 	private String password;
 	
-	@Value("${sftp.sessionTimeout}")
 	private Integer sessionTimeout;
 	
-	@Value("${sftp.channelTimeout}")
 	private Integer channelTimeout;
 	
-	public boolean uploadFile(String localFilePath, String remoteFilePath) {
+	public FileTransSFTP(String host, int port
+			, String username, String password
+			, int sessionTimeout, int channelTimeout) {
+		this.host = host;
+		this.port = port;
+		this.username = username;
+		this.password = password;
+		this.sessionTimeout = sessionTimeout;		
+		this.channelTimeout = channelTimeout;
+	}
+	
+	public boolean uploadFile(String localFilePath, String remoteDir, String remoteFile) {
 		ChannelSftp channelSftp = createChannelSftp();
 		try {
-			channelSftp.put(localFilePath, remoteFilePath);
+			channelSftp.cd(remoteDir);
+			channelSftp.put(localFilePath, remoteFile);			
 			return true;
 		} catch(SftpException ex) {
 			logger.error("Error upload file", ex);

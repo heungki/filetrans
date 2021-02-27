@@ -3,7 +3,8 @@ server.port: 8080
 spring:
   jpa:
     show-sql: true
-    
+    properties.hibernate.format_sql: true
+    hibernate.ddl-auto : update
   h2:
     console:
       enabled: true
@@ -12,31 +13,34 @@ spring:
     root: INFO
     com.example.ayoteralab.main: DEBUG
   file:
-    path: logs
-      
+    path: logs      
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa
     password:
     driver-class-name: org.h2.Driver
     initialization-mode: always
-    data: classpath:sql/schema.sql, classpath:sql/data.sql
-    
+    data: classpath:sql/schema.sql, classpath:sql/data.sql    
   kafka:    
     bootstrap-servers: localhost:9092
     sessiontimeout: 200000
     connectiontimeout: 15000
     template:
       filetrans-topic: filetrans-topic
+      tgtrslt-topic: tgtrslt-topic
+      srcrslt-topic: srcrslt-topic
+      log-topic: log-topic
+      BIZ-topic: BIZ-topic
+      CHN-topic: CHN-topic
     consumer:    
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer   
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       enable-auto-commit: true
       max-poll-records: 10     
       filetrans-group-id: filetrans-group             
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer 
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     
       

@@ -1,4 +1,4 @@
-package com.filetransserver.service;
+package com.filetransclient.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +20,10 @@ public class KafkaProducerConfig {
     private String keyDeSerializer;
     @Value("${spring.kafka.producer.value-serializer}")
     private String valueDeSerializer;
+    @Value("${spring.kafka.connectiontimeout}")
+    private String connectiontimeout;
+    @Value("${spring.kafka.sessiontimeout}")
+    private String sessiontimeout;
     
     @Bean
     public ProducerFactory<String, String> producerFactory() {
@@ -27,11 +31,15 @@ public class KafkaProducerConfig {
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keyDeSerializer);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueDeSerializer);
+        configProps.put(ProducerConfig.CONNECTIONS_MAX_IDLE_MS_CONFIG, connectiontimeout);
+        configProps.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, sessiontimeout);
         return new DefaultKafkaProducerFactory<>(configProps);
     }
-    
-    @Bean
+
+
+	@Bean
     public KafkaTemplate<String, String> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
-    }
+        return new KafkaTemplate<String, String>(producerFactory());
+    }    
+
 }

@@ -1,4 +1,4 @@
-package com.filetransclient.service;
+package com.filetransdaemon.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,10 +31,9 @@ import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import com.filetransclient.config.KafkaProducerConfig;
-import com.filetransclient.config.KafkaTopicConfig;
-import com.filetransclient.controller.FileTransController;
-import com.filetransclient.model.TransFileModel;
+import com.filetransdaemon.config.KafkaProducerConfig;
+import com.filetransdaemon.config.KafkaTopicConfig;
+import com.filetransdaemon.model.TransFileModel;
 import com.google.gson.Gson;
 
 @Service

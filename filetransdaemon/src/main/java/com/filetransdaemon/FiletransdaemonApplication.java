@@ -11,17 +11,7 @@ public class FiletransdaemonApplication {
 		SpringApplication application = new SpringApplication(FiletransdaemonApplication.class);
 		application.setWebApplicationType(WebApplicationType.NONE);
 		application.run(args);
-		
-		aestest aestest= new aestest();
-		sftptest sftptest= new sftptest();
-		try {
-			aestest.run(args);
-			sftptest.run(args);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
 	}
 
 }

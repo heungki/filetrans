@@ -8,25 +8,22 @@ logging:
 spring:    
   kafka:    
     bootstrap-servers: localhost:9092
+    sessiontimeout: 200000
+    connectiontimeout: 15000
     template:
-      filetrans-topic: filetrans-topic
+      srcrslt-topic: srcrslt-topic
+      tgtrslt-topic: tgtrslt-topic
+      listen-topic: ${listen-topic}
     consumer:    
       auto-offset-reset: latest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer   
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer   
       enable-auto-commit: true
       max-poll-records: 10
       
       filetrans-group-id: filetrans-group             
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      
-sftp:
-  host: 127.0.0.1
-  port: 22
-  username: bizftp
-  password: bizftp
-  sessionTimeout: 15000
-  channelTimeout: 15000
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
       
