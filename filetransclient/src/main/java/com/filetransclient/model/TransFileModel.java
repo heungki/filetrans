@@ -20,7 +20,7 @@ public class TransFileModel {
 	private String enc_yn; // 암호화여부
 	private String enc_type; // 암호화타입
 	private String src_flag_yn; // 소스플래그
-	private String tgt_flga_yn; // 타켓플래그
+	private String tgt_flag_yn; // 타켓플래그
 	private String tgt_app; // 타켓APP
 	private String file_size; // 파일사이즈	
 	
@@ -132,10 +132,10 @@ public class TransFileModel {
 		this.src_flag_yn = src_flag_yn;
 	}
 	public String getTgt_flga_yn() {
-		return tgt_flga_yn;
+		return tgt_flag_yn;
 	}
-	public void setTgt_flga_yn(String tgt_flga_yn) {
-		this.tgt_flga_yn = tgt_flga_yn;
+	public void setTgt_flag_yn(String tgt_flag_yn) {
+		this.tgt_flag_yn = tgt_flag_yn;
 	}
 	public String getTgt_app() {
 		return tgt_app;
@@ -205,7 +205,7 @@ public class TransFileModel {
 				+ temp_topic + ", client_time=" + client_time + ", proc_code=" + proc_code + ", trans_type="
 				+ trans_type + ", src_server_id=" + src_server_id + ", src_dir=" + src_dir + ", tgt_server_id="
 				+ tgt_server_id + ", tgt_dir=" + tgt_dir + ", enc_yn=" + enc_yn + ", enc_type=" + enc_type
-				+ ", src_flag_yn=" + src_flag_yn + ", tgt_flga_yn=" + tgt_flga_yn + ", tgt_app=" + tgt_app
+				+ ", src_flag_yn=" + src_flag_yn + ", tgt_flga_yn=" + tgt_flag_yn + ", tgt_app=" + tgt_app
 				+ ", file_size=" + file_size + ", server_ip=" + server_ip + ", server_port=" + server_port + ", ftp_id="
 				+ ftp_id + ", password=" + password + ", daemon_dc=" + daemon_dc + ", encfile_size=" + encfile_size
 				+ "]";

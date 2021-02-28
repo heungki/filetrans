@@ -74,7 +74,7 @@ public class FileAES256 {
 	      byte[] output = cipher.doFinal();
 	      if (output != null)
 	    	  outFile.write(output);
-	      outFile.close();
+	      inFile.close();
 	      outFile.flush();
 	      outFile.close();
 		

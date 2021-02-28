@@ -9,7 +9,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import com.filetransdaemon.model.TransFileModel;
 import com.filetransdaemon.service.KafkaProducerService;
 import com.filetransdaemon.service.TransFileDaemonService;
-import com.filetransdaemon.util.FileCheck;
 import com.filetransdaemon.util.FileTransUtil;
 import com.google.gson.Gson;
 
@@ -28,7 +27,6 @@ public class TransFileDaemonProc {
     	KafkaProducerService kafkaProducerService = new KafkaProducerService(kafkaTemplate);
     	
     	TransFileDaemonService transFileDaemonService = new TransFileDaemonService();
-    	FileCheck fileCheck = new FileCheck();
     	FileTransUtil fileTransUtil = new FileTransUtil();
     	
     	String proc_filepath; // 파일사이즈 체크용 진행중인 파일패스
@@ -36,6 +34,7 @@ public class TransFileDaemonProc {
 		String enc_suffix = "_enc"; // 암호화 파일 접미사
 		String dec_suffix = "_dec"; // 복호화 파일 접미사
 		String trans_suffix = "_tmp"; // 전송 임시 파일 접미사
+		String flag_suffix = ".FIN"; // 플래그 파일 접미사
 		transFileModel.setProc_code("SS001");		
 		
     	// 송수신 데몬 구분
@@ -45,7 +44,7 @@ public class TransFileDaemonProc {
     		
     		
     		// 파일 존재 확인
-    		if(!fileCheck.chkFileExists(proc_filepath)){
+    		if(!fileTransUtil.chkFileExists(proc_filepath)){
     			logger.info("TransFileDaemonProc error : File Not Found");
     			transFileModel.setProc_code("ED001");
     			TransResultProc(topicName,transFileModel);
@@ -53,7 +52,7 @@ public class TransFileDaemonProc {
     		}
     		
     		// 파일 사이즈 확인    		
-    		String filesize = fileCheck.getFileSize(proc_filepath);
+    		String filesize = fileTransUtil.getFileSize(proc_filepath);
     		if(!transFileModel.getFile_size().equals(filesize)){
     			logger.info("TransFileDaemonProc error : File Size Error(Req File -> " + transFileModel.getFile_size() + " Check File -> " + filesize + ")");
     			transFileModel.setProc_code("ED002");
@@ -76,7 +75,7 @@ public class TransFileDaemonProc {
     			// 암호화 파일 사이즈 확인
         		proc_filepath = FilenameUtils.concat(transFileModel.getSrc_dir(), transFileModel.getSrc_file()+enc_suffix); 
         		transFileModel.setEncfile_size(
-        				fileCheck.getFileSize(proc_filepath));
+        				fileTransUtil.getFileSize(proc_filepath));
         		
     		}
     		
@@ -111,6 +110,17 @@ public class TransFileDaemonProc {
 				logger.error("TransFileDaemonProc error : Srctgt Topic send Error" + e);
 				return;
 			}
+        	
+        	// Flag 파일 생성
+        	try {
+        		fileTransUtil.createFlagFile(transFileModel, flag_suffix);
+			} catch (Exception e) {
+				logger.error("TransFileDaemonProc error : createFlagFile Error" + e);
+				transFileModel.setProc_code("ED003");
+				TransResultProc(topicName,transFileModel);
+				return;
+			}      	
+        	
     	}else if(transFileModel.getDaemon_dc().equals("R")) {
     		String topicName = "tgtrslt-topic";
     		
@@ -122,7 +132,7 @@ public class TransFileDaemonProc {
 				proc_filepath += trans_suffix;
 			}
     		// 파일 존재 확인
-    		if(!fileCheck.chkFileExists(proc_filepath)){
+    		if(!fileTransUtil.chkFileExists(proc_filepath)){
     			
     			logger.info("TransFileDaemonProc error : File Not Found " + proc_filepath);
     			transFileModel.setProc_code("ED001");
@@ -131,7 +141,7 @@ public class TransFileDaemonProc {
     		}
     		
     			
-    		String filesize = fileCheck.getFileSize(proc_filepath);
+    		String filesize = fileTransUtil.getFileSize(proc_filepath);
     		    		
     		// 파일 복호화	
     		// 암호화 여부 확인
@@ -155,7 +165,7 @@ public class TransFileDaemonProc {
     			
     			proc_filepath = FilenameUtils.concat(transFileModel.getTgt_dir(), transFileModel.getTgt_file() + dec_suffix); 
     			// 복호화 파일과 원본사이즈 확인   
-        		filesize = fileCheck.getFileSize(proc_filepath);
+        		filesize = fileTransUtil.getFileSize(proc_filepath);
         		if(!transFileModel.getFile_size().equals(filesize)){
         			logger.info("TransFileDaemonProc error : File Size Error(Req file -> " + transFileModel.getFile_size() + " Check file -> " + filesize + ")");
         			transFileModel.setProc_code("ED002");
@@ -195,6 +205,18 @@ public class TransFileDaemonProc {
         	// 타켓 결과-Topic 전송
         	TransResultProc(topicName,transFileModel);
         	
+        	// Flag 파일 생성        	
+        	if(transFileModel.getSrc_flag_yn().equals("Y") 
+        			|| transFileModel.getTgt_flag_yn().equals("Y")) {	        	
+	        	try {
+	        		fileTransUtil.createFlagFile(transFileModel, flag_suffix);
+				} catch (Exception e) {
+					logger.error("TransFileDaemonProc error : createFlagFile Error" + e);
+					transFileModel.setProc_code("ED003");
+					TransResultProc(topicName,transFileModel);
+					return;
+				}    
+        	}
         	
     	}
     	    	
