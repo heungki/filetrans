@@ -25,10 +25,10 @@ public class TransFileModel {
 	private String file_size; // 파일사이즈	
 	
 	// 서버정보
-	//private String server_ip; // 타켓서버IP
-	//private String server_port; // 타켓서버PORT
-	//private String ftp_id; // 타켓서버 FTP ID
-	//private String password; // 타켓서버 FTP 패스워드
+	private String server_ip; // 타켓서버IP
+	private String server_port; // 타켓서버PORT
+	private String ftp_id; // 타켓서버 FTP ID
+	private String password; // 타켓서버 FTP 패스워드
 		
 	// 데몬
 	private String daemon_dc; // 데몬 구분
@@ -143,7 +143,7 @@ public class TransFileModel {
 	public void setTgt_app(String tgt_app) {
 		this.tgt_app = tgt_app;
 	}
-	/*public String getTgt_server_ip() {
+	public String getTgt_server_ip() {
 		return server_ip;
 	}
 	public void setTgt_server_ip(String server_ip) {
@@ -172,7 +172,7 @@ public class TransFileModel {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}*/
+	}
 	public String getFile_size() {
 		return file_size;
 	}
@@ -206,7 +206,8 @@ public class TransFileModel {
 				+ trans_type + ", src_server_id=" + src_server_id + ", src_dir=" + src_dir + ", tgt_server_id="
 				+ tgt_server_id + ", tgt_dir=" + tgt_dir + ", enc_yn=" + enc_yn + ", enc_type=" + enc_type
 				+ ", src_flag_yn=" + src_flag_yn + ", tgt_flga_yn=" + tgt_flga_yn + ", tgt_app=" + tgt_app
-				+ ", file_size=" + file_size + ", daemon_dc=" + daemon_dc + ", encfile_size=" + encfile_size
+				+ ", file_size=" + file_size + ", server_ip=" + server_ip + ", server_port=" + server_port + ", ftp_id="
+				+ ftp_id + ", password=" + password + ", daemon_dc=" + daemon_dc + ", encfile_size=" + encfile_size
 				+ "]";
 	}
 	

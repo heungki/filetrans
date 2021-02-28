@@ -47,14 +47,16 @@ public class FileTransController {
 			trans_key = fileTransModel.getClient_id()+"-"+fileTransUtil.getRandomStr(5);
 			fileTransModel.setTrans_key(trans_key);
 		} catch (Exception e) {
-			logger.info("fileTransSet error" + e);
+			logger.info("fileTransSet error " + e);
 		}    
     	    	
     	// 클라이언트 처리시간 세팅
-		String pattern = "yyyyMMddHHmmssSSS";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		String client_time = simpleDateFormat.format(new Date());
-		fileTransModel.setClient_time(client_time);
+		
+		try {
+			fileTransModel.setClient_time(fileTransUtil.getCurrentTime());
+		} catch (Exception e) {
+			logger.info("fileTransSet error" + e);
+		}
 		
 		logger.info(fileTransModel.toString());
         return fileTransModel;

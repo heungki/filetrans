@@ -32,8 +32,6 @@ public class KafkaConsumerService {
         props.put("group.id", (String)ctx.getBean("filetransgroup"));
         props.put("enable.auto.commit", (String)ctx.getBean("autocommit"));
         props.put("auto.offset.reset", (String)ctx.getBean("offsetreset"));
-        props.put("", "true");
-        props.put("", "latest");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
         consumer.subscribe(Arrays.asList(topicname));

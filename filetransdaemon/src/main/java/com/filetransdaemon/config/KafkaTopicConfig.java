@@ -13,6 +13,10 @@ public class KafkaTopicConfig {
     private static int connectiontimeout = 15000; // Ä¿³Ø¼ÇÅ¸ÀÓ¾Æ¿ô(15ÃÊ)
     
     // comsumer
+    private static String autocommit = "true"; // autocommit
+    private static String offsetreset = "earliest"; // Offset reset
+    
+    // comsumer
     private static String keydeserializer = "org.apache.kafka.common.serialization.StringDeserializer";
     private static String valuedeserializer = "org.springframework.kafka.support.serializer.JsonDeserializer";
     
@@ -75,4 +79,19 @@ public class KafkaTopicConfig {
 	public static void setValuedeserializer(String valuedeserializer) {
 		KafkaTopicConfig.valuedeserializer = valuedeserializer;
 	}
+	@Bean
+	public static String autocommit() {
+		return autocommit;
+	}
+	public static void setAutocommit(String autocommit) {
+		KafkaTopicConfig.autocommit = autocommit;
+	}
+	@Bean
+	public static String offsetreset() {
+		return offsetreset;
+	}
+	public static void setOffsetreset(String offsetreset) {
+		KafkaTopicConfig.offsetreset = offsetreset;
+	}
+	
 }

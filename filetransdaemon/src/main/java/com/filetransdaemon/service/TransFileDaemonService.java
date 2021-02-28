@@ -65,23 +65,23 @@ public class TransFileDaemonService {
 	}
 	
 	// 파일 전송
-	public boolean fileTrans(TransFileModel transFileModel, String suffix) {
+	public boolean fileTrans(TransFileModel transFileModel, String enc_suffix, String trans_suffix) {
 		
 		logger.info("Start Trans file");		
 		
-		String srcfilepath = FilenameUtils.concat(transFileModel.getSrc_dir(), transFileModel.getSrc_file());
-		String dstfilepath = FilenameUtils.concat(transFileModel.getTgt_dir(), transFileModel.getTgt_file() + suffix);
+		String srcfilepath = FilenameUtils.concat(transFileModel.getSrc_dir(), transFileModel.getSrc_file() + enc_suffix);
+		String dstfilefile = transFileModel.getTgt_file() + trans_suffix;
 		
 		boolean result = true;
 		
 		logger.info("fileTrans -> " + transFileModel.getServer_ip() + " " + transFileModel.getServer_port() + " " +
-				transFileModel.getFtp_id() + " " + srcfilepath + " " + dstfilepath);
+				transFileModel.getFtp_id() + " " + srcfilepath + " " + dstfilefile);
 		// SFTP 타입 전송
 		if(transFileModel.getTrans_type().equals("S")) {
 			FileTransSFTP fileTrans = new FileTransSFTP(transFileModel.getServer_ip(), 
 					Integer.parseInt(transFileModel.getServer_port()),
 					transFileModel.getFtp_id(), transFileModel.getPassword(), 10000, 15000);
-			result = fileTrans.uploadFile(srcfilepath, transFileModel.getTgt_dir(), transFileModel.getTgt_file() + suffix);
+			result = fileTrans.uploadFile(srcfilepath, transFileModel.getTgt_dir(), dstfilefile);
 			logger.info("Trans result: " + String.valueOf(result));
 		}
 		// ... 타입 전송

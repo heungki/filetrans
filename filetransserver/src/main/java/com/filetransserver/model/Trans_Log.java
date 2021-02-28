@@ -28,10 +28,11 @@ public class Trans_Log {
 	private String tgt_dir; // 타켓경로
 	private String tgt_file; // 타켓파일				
 	private String file_size; // 파일사이즈
+	private String encfile_size; // 암호화파일사이즈	
 	private String temp_topic; // 임시토픽
 	private String client_time; // 클라이언트처리시간
 	private String proc_code; // 처리코드
-	private String proc_time; // 처리시간
+	private String server_time; // 서버처리시간
 	private String status; // 상태
 	@Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String log_seq; // 로그시퀀스
@@ -74,8 +75,8 @@ public class Trans_Log {
 	public String getProc_code() {
 		return proc_code;
 	}
-	public String getProc_time() {
-		return proc_time;
+	public String getServer_time() {
+		return server_time;
 	}
 	public String getStatus() {
 		return status;
@@ -122,8 +123,8 @@ public class Trans_Log {
 	public void setProc_code(String proc_code) {
 		this.proc_code = proc_code;
 	}
-	public void setProc_time(String proc_time) {
-		this.proc_time = proc_time;
+	public void setServer_time(String server_time) {
+		this.server_time = server_time;
 	}
 	public void setStatus(String status) {
 		this.status = status;
@@ -131,6 +132,11 @@ public class Trans_Log {
 	public void setLog_seq(String log_seq) {
 		this.log_seq = log_seq;
 	}
-	
+	public String getEncfile_size() {
+		return encfile_size;
+	}
+	public void setEncfile_size(String encfile_size) {
+		this.encfile_size = encfile_size;
+	}
 	
 }

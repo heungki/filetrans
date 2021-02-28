@@ -14,8 +14,8 @@ public class KafkaTopicConfig {
     private static String filetransgroup = "filetrans-group"; // 그룹ID
     
     // comsumer
-    private static String autocommit = "true"; // 그룹ID
-    private static String offsetreset = "latest"; // 그룹ID
+    private static String autocommit = "true"; // autocommit
+    private static String offsetreset = "earliest"; // Offset reset
     private static String keydeserializer = "org.apache.kafka.common.serialization.StringDeserializer";
     private static String valuedeserializer = "org.springframework.kafka.support.serializer.JsonDeserializer";
     

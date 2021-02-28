@@ -10,7 +10,7 @@ import com.filetransdaemon.proc.TransFileDaemonProc;
 public class FileCheck {
 	private static Logger logger = LoggerFactory.getLogger(FileCheck.class);
 	
-	// 파일 사이즈 확인
+	// 파일 여부 확인
 	public boolean chkFileExists(String filepath) {
 		boolean result = true;
 				

@@ -15,30 +15,23 @@ import com.filetransserver.service.KafkaProducerService;
 import com.filetransserver.util.FileTransUtil;
 import com.google.gson.Gson;
 
-public class TransResultProc {
-	private static Logger logger = LoggerFactory.getLogger(TransResultProc.class);
+public class TransErrorProc {
+	private static Logger logger = LoggerFactory.getLogger(TransErrorProc.class);
 
 	private KafkaTemplate kafkaTemplate;
 
     @Autowired
-    public TransResultProc( KafkaTemplate kafkaTemplate) {
+    public TransErrorProc( KafkaTemplate kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 	
-	public void TransResultProc(TransFileModel transFileModel) {	
+	public void TransErrorProc(TransFileModel transFileModel) {	
 		KafkaProducerService kafkaProducerService = new KafkaProducerService(kafkaTemplate);
 		
 		TransFileMapper transFileMapper = new TransFileMapper();
     	FileTransUtil fileTransUtil = new FileTransUtil();
-    	TransErrorProc transErrorProc = new TransErrorProc(kafkaTemplate);
-    	
-    	// 타켓 서버 에러로 임시 Topic에 에러응답    
-    	if(!transFileModel.getProc_code().equals("SS001")) {
-			transErrorProc.TransErrorProc(transFileModel);
-			return;
-    	}
 		
-    	// RESULT Log
+    	// ERROR Log
     	// 로그 정보 매핑
     	Trans_Log trans_log = new Trans_Log();
     	transFileMapper.transLogMapper().map(transFileModel, trans_log);
@@ -48,9 +41,10 @@ public class TransResultProc {
 			trans_log.setServer_time(fileTransUtil.getCurrentTime());
 			trans_log.setTrans_date(trans_log.getServer_time().substring(0, 8));
 		} catch (Exception e) {
-			logger.error("TransResultProc  " + e);
+			logger.error("TransErrorProc  " + e);
 		}
-    	trans_log.setStatus("RESULT");
+    	trans_log.setStatus("ERROR");
+    	
     	
     	// 로그 Topic 전송
     	Gson messageGson = new Gson();    	
@@ -64,6 +58,11 @@ public class TransResultProc {
     	
 		// 결과 전문 생성
 		transFileModel.setDaemon_dc("");
+		// 불필요 항목 삭제
+    	transFileModel.setServer_ip("");
+		transFileModel.setServer_port("");
+		transFileModel.setFtp_id("");
+		transFileModel.setPassword("");
     	    	    	
     	// 임시-Topic 전송
 		Gson tmpmessageGson = new Gson();
@@ -73,9 +72,7 @@ public class TransResultProc {
     	try {
 			kafkaProducerService.sendMessage(topicName, tmpmessageJson);
 		} catch (Exception e) {
-			logger.error("TransResultProc -> " + e);
-			transFileModel.setProc_code("ES013");
-			transErrorProc.TransErrorProc(transFileModel);
+			logger.error("TransErrorProc -> " + e);
 		}   
     	
     	// END Log   	
@@ -84,7 +81,7 @@ public class TransResultProc {
     		// 서버시간
 			trans_log.setServer_time(fileTransUtil.getCurrentTime());
 		} catch (Exception e) {
-			logger.error("TransResultProc  " + e);
+			logger.error("TransErrorProc  " + e);
 		}
     	trans_log.setStatus("END");    	
     	
@@ -94,7 +91,7 @@ public class TransResultProc {
     	try {
 			kafkaProducerService.sendMessage(logTopicName, messageJson);
 		} catch (Exception e) {
-			logger.error("TransResultProc -> " + e);
+			logger.error("TransErrorProc -> " + e);
 		}
 	}
 

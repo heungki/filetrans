@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.filetransdaemon.model.TransFileModel;
 import com.filetransdaemon.proc.TransFileDaemonProc;
+import com.filetransdaemon.util.FileTransUtil;
 import com.google.gson.Gson;
 
 @Component
@@ -26,6 +27,8 @@ public class KafkaConsumerService {
     @KafkaListener(topics = "${spring.kafka.template.listen-topic}")
     public void listenGroupFileTransDaemon(String message) {
     	logger.info("received message filetrans Daemon -> " + message);
+    	
+    	KafkaProducerService kafkaProducerService = new KafkaProducerService(kafkaTemplate);
     	
     	TransFileDaemonProc transFileService = new TransFileDaemonProc(kafkaTemplate);
     	
@@ -48,6 +51,7 @@ public class KafkaConsumerService {
 	    	
 	    	// 데몬 프로세스 시작
 	    	transFileService.TransFileDaemonProc(fileTransModel);
+	    	  
     	}
     }  
     

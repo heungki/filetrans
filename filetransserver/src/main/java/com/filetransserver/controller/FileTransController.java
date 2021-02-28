@@ -9,6 +9,7 @@ import com.filetransserver.repository.TransLogRepository;
 import com.filetransserver.service.KafkaProducerService;
 import com.filetransserver.service.ServerInfoService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,9 @@ public class FileTransController {
     // 송신 정보 조회
     @RequestMapping("/transinfo")
     public List<Trans_Info> getTransInfo() {
-        return transInfoRepository.findAll();
+    	List<Trans_Info> transinfo = new ArrayList<Trans_Info>();
+    	transInfoRepository.findAll().forEach(transinfo::add);
+        return  transinfo;     
     }
     
     // 송신 로그 조회   

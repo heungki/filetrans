@@ -29,7 +29,7 @@ spring:
       filetrans-topic: filetrans-topic
       tgtrslt-topic: tgtrslt-topic
       srcrslt-topic: srcrslt-topic
-      log-topic: log-topic
+      log1-topic: log1-topic
       BIZ-topic: BIZ-topic
       CHN-topic: CHN-topic
     consumer:    

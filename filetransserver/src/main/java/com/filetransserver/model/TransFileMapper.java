@@ -30,4 +30,15 @@ public class TransFileMapper {
 
         return modelMapper;
     }
+    
+    // 로그 정보 매핑
+    @Bean
+    public ModelMapper transLogMapper() {
+        // 매핑 전략 설정
+        modelMapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.STRICT);
+        modelMapper.createTypeMap(Trans_Log.class, TransFileModel.class);
+
+        return modelMapper;
+    }
 }

@@ -10,11 +10,14 @@ import org.springframework.stereotype.Component;
 
 import com.filetransserver.model.TransFileModel;
 import com.filetransserver.model.Trans_Info;
+import com.filetransserver.model.Trans_Log;
 import com.filetransserver.proc.TransFileProc;
+import com.filetransserver.proc.TransLogProc;
 import com.filetransserver.proc.TransResultProc;
 import com.filetransserver.proc.TransTargetProc;
 import com.filetransserver.repository.ServerInfoRepository;
 import com.filetransserver.repository.TransInfoRepository;
+import com.filetransserver.repository.TransLogRepository;
 import com.google.gson.Gson;
 
 @Component
@@ -23,16 +26,20 @@ public class KafkaConsumerService {
 	
 	private ServerInfoRepository serverInfoRepository;
 	private TransInfoRepository transInfoRepository;
+	private TransLogRepository transLogRepository;
 	private KafkaTemplate kafkaTemplate;
 	
 	@Autowired
     public KafkaConsumerService(ServerInfoRepository serverInfoRepository,
     			TransInfoRepository transInfoRepository,
+    			TransLogRepository transLogRepository,
     			KafkaTemplate kafkaTemplate) {
         this.serverInfoRepository = serverInfoRepository;
         this.transInfoRepository = transInfoRepository;
+        this.transLogRepository = transLogRepository;
         this.kafkaTemplate = kafkaTemplate;
     }
+	
 	// 파일 전송 Topic Listen
     @KafkaListener(topics = "filetrans-topic")
     public void listenGroupFileTrans(String message) {
@@ -66,7 +73,7 @@ public class KafkaConsumerService {
     public void listenGroupSrcRslt(String message) {
     	logger.info("received message srcrslt -> " + message);
     	
-    	TransTargetProc transTargetProc = new TransTargetProc(serverInfoRepository, transInfoRepository, kafkaTemplate);
+    	TransTargetProc transTargetProc = new TransTargetProc(kafkaTemplate);
     	boolean isJson = true;
     	try
     	{
@@ -94,7 +101,7 @@ public class KafkaConsumerService {
     public void listenGroupTgtRslt(String message) {
     	logger.info("received message tgtrslt -> " + message);
     	
-    	TransResultProc transResultProc = new TransResultProc(serverInfoRepository, transInfoRepository, kafkaTemplate);
+    	TransResultProc transResultProc = new TransResultProc(kafkaTemplate);
     	boolean isJson = true;
     	try
     	{
@@ -116,4 +123,5 @@ public class KafkaConsumerService {
 	    	transResultProc.TransResultProc(fileTransModel);
     	}
     }  
+
 }
