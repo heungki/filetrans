@@ -1,5 +1,5 @@
 # 서버 to 서버 파일 전송 프로그램
-
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fheungki%2Ffiletrans&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 ## 1. **환경**
 ### 1) 개발언어 : JAVA 1.8.0.282
 ### 2) 개발도구 : Eclipse 4.16(2020-06)
