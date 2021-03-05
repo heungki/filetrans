@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,7 +21,8 @@ import com.filetransclient.util.FileCheck;
 @SpringBootApplication
 public class FiletransclientApplication {
 	private static Logger logger = LoggerFactory.getLogger(FiletransclientApplication.class);
-			
+	
+	
 	public static void main(String[] args) {
 		SpringApplication application = new SpringApplication(FiletransclientApplication.class);
 		application.setWebApplicationType(WebApplicationType.NONE);
@@ -28,22 +30,23 @@ public class FiletransclientApplication {
 		
 		TransFileModel fileTransModel =  new TransFileModel();
 		FileTransController fileTransController = context.getBean(FileTransController.class);
-		
-		
+				
 		logger.info("파일 전송 배치 시작");
 		// 클라이언트 ID(각 배치에서)
-		String client_id = "biz-batch1";		
+		String client_id = args[0];		
 		fileTransModel.setClient_id(client_id);
 		
 		// 전송 ID(각 배치에서)
-		String tran_id = "CUSTOMER_INFO";		
+		String tran_id = args[1];		
 		
 		// 응답대기여부(각 배치에서)
 		String reply_yn = "Y";
 		
 		// 소스파일명(각 배치에서)
 		String src_dir = "BIZ-send/";
-		String src_file = "customer_info.txt";
+		String src_file = args[2];
+		
+		
 		
 		// 파일생성(테스트를 위한 임시 소스파일 생성)
 		if(!fileTransController.tempFileCreate(src_dir+src_file)) {
@@ -52,7 +55,7 @@ public class FiletransclientApplication {
 		}
 		
 		// 타켓파일(각 배치에서)
-		String tgt_file = "customer_info_dst.txt";
+		String tgt_file = args[3];
 		
 		// 파일정보 세팅		
 		fileTransModel.setTrans_id(tran_id);

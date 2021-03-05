@@ -69,8 +69,15 @@ public class TransFileProc {
     	
 		// 전송 정보 조회
     	Trans_Info trans_info = new Trans_Info();
-    	trans_info.setTrans_id(transFileModel.getTrans_id());    	
-    	trans_info = transInfoService.getTransInfo(trans_info);
+    	trans_info.setTrans_id(transFileModel.getTrans_id());       	
+    	try {
+    		trans_info = transInfoService.getTransInfo(trans_info);
+		} catch (Exception e) {
+			logger.error("TransFileProc -> " + e);
+			transFileModel.setProc_code("ES001");
+			transErrorProc.TransErrorProc(transFileModel);
+			return;
+		}
     	
     	// 전송 정보 매핑
     	transFileMapper.transInfoMapper().map(trans_info, transFileModel);
@@ -78,8 +85,15 @@ public class TransFileProc {
     	
     	// 타켓 서버 정보 조회 
     	Server_Info server_info = new Server_Info();
-    	server_info.setServer_id(transFileModel.getTgt_server_id());
-    	server_info = serverInfoService.getServerInfo(server_info);
+    	server_info.setServer_id(transFileModel.getTgt_server_id());    	
+    	try {
+    		server_info = serverInfoService.getServerInfo(server_info);
+		} catch (Exception e) {
+			logger.error("TransFileProc -> " + e);
+			transFileModel.setProc_code("ES002");
+			transErrorProc.TransErrorProc(transFileModel);
+			return;
+		}
     	
     	// 타켓 정보 매핑
     	transFileMapper.serverInfoMapper().map(server_info, transFileModel);
@@ -99,6 +113,7 @@ public class TransFileProc {
 			logger.error("TransFileProc -> " + e);
 			transFileModel.setProc_code("ES010");
 			transErrorProc.TransErrorProc(transFileModel);
+			return;
 		}
     	
     	// SEND Log    	

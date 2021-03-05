@@ -2,14 +2,17 @@ insert into person values(1,'HONG', 'seoul 523-23'); insert into person values(2
 
 
 -- 전송 정보 입력
+-- 정상전송
 insert into trans_info(trans_id, trans_nm, trans_type, src_server_id, src_dir, tgt_server_id, tgt_dir, enc_yn, enc_type, src_flag_yn, tgt_flag_yn, tgt_app)
 	values('CUSTOMER_INFO', '고객정보', 'S', 'BIZ', 'BIZ-send/', 'CHN', 'CHN-recv/', 'Y', 'AES', 'Y', 'Y', 'notepad');
 
+-- flag 미존재
 insert into trans_info(trans_id, trans_nm, trans_type, src_server_id, src_dir, tgt_server_id, tgt_dir, enc_yn, enc_type, src_flag_yn, tgt_flag_yn, tgt_app)
-	values('ACCOUNT_INFO', '계좌정보', 'S', 'CHN', '/', 'BIZ', 'rev/', 'Y', 'AES', 'N', 'N', '');
+	values('ACCOUNT_INFO', '계좌정보', 'S', 'BIZ', 'BIZ-send/', 'CHN', 'CHN-recv/', 'Y', 'AES', 'N', 'N', '');
 
+-- 암호화X
 insert into trans_info(trans_id, trans_nm, trans_type, src_server_id, src_dir, tgt_server_id, tgt_dir, enc_yn, enc_type, src_flag_yn, tgt_flag_yn, tgt_app)
-	values('ISSUED_INFO', '발급정보', 'F', 'BIZ', '/snd', 'FEP', '/rev/', 'N', 'SEED', 'Y', 'N', 'bat_exec.sh ISSUED_INF_RECV');
+	values('ISSUED_INFO', '발급정보', 'S', 'BIZ', 'BIZ-send/', 'CHN', 'CHN-recv/', 'N', '', 'Y', 'N', 'bat_exec.sh ISSUED_INF_RECV');
 
 -- 서버 정보 입력
 insert into server_info(server_id, server_nm, server_ip, server_port, trans_type, ftp_id, password)

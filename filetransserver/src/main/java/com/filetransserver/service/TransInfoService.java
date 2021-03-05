@@ -23,7 +23,7 @@ public class TransInfoService {
     }
     
     // 송신 정보 가져오기
- 	public Trans_Info getTransInfo(Trans_Info trans_Info) {		
+ 	public Trans_Info getTransInfo(Trans_Info trans_Info) throws Exception{		
  		
  		String trans_id = trans_Info.getTrans_id();
  		logger.info("trans_id -> " + trans_id);
