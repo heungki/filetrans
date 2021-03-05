@@ -38,6 +38,9 @@ dependencies {
 	implementation 'com.google.code.gson:gson:2.8.6'
 	/* Model Mapper */
 	compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.0'
+	/* thymeleaf */
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	
 
 	/* web */
 	implementation 'org.springframework.boot:spring-boot-starter-web'

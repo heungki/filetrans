@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>전송로그리스트</title>
+    <style>
+    	table{border-collapse: collapse}
+    	table, th, td{border: 1px solid black}
+    </style>
+    
+</head>
+<body>
+     <table>
+        <thead>
+        <tr>
+            <th class="one wide">전송 날짜</th>
+            <th class="one wide">전송 ID</th>
+            <th class="one wide">전송 키</th>
+            <th class="one wide">상태</th>
+            <th class="one wide">클라이언트 ID</th>
+            <th class="one wide">응답대기 여부</th>
+            <th class="one wide">소스 경로</th>
+            <th class="one wide">소스 파일</th>
+            <th class="one wide">타겟 경로</th>
+            <th class="one wide">타켓 파일</th>
+            <th class="one wide">파일사이즈</th>
+            <th class="one wide">암호화파일사이즈</th>
+            <th class="one wide">임시토픽</th>
+            <th class="one wide">클라이언트 처리시간</th>
+            <th class="one wide">처리코드</th>
+            <th class="one wide">서버처리시간</th>            
+        </tr>
+        </thead>
+
+        <tbody>
+        <!-- CONTENTS !-->
+        <tr th:each="translog : ${transloglist}">
+        	<td th:text="${translog.trans_date}"></td> 
+        	<td th:text="${translog.trans_id}"></td>
+        	<td th:text="${translog.trans_key}"></td>
+        	<td th:text="${translog.status}"></td>
+        	<td th:text="${translog.client_id}"></td>
+        	<td th:text="${translog.reply_yn}"></td>
+        	<td th:text="${translog.src_dir}"></td>
+        	<td th:text="${translog.src_file}"></td>
+        	<td th:text="${translog.tgt_dir}"></td>
+        	<td th:text="${translog.tgt_file}"></td>
+        	<td th:text="${translog.file_size}"></td>
+        	<td th:text="${translog.encfile_size}"></td>        	
+        	<td th:text="${translog.temp_topic}"></td>
+        	<td th:text="${translog.client_time}"></td>
+        	<td th:text="${translog.proc_code}"></td>
+        	<td th:text="${translog.server_time}"></td>        	
+     	</tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>전송정보리스트</title>
+    <style>
+    	table{border-collapse: collapse}
+    	table, th, td{border: 1px solid black}
+    </style>
+    
+</head>
+<body>
+     <table>
+        <thead>
+        <tr>
+            <th class="one wide">전송 ID</th>
+            <th class="one wide">전송 명</th>
+            <th class="one wide">전송 타입</th>
+            <th class="one wide">소스서버 ID</th>
+            <th class="one wide">소스경로</th>
+            <th class="one wide">타겟서버 ID</th>
+            <th class="one wide">타겟경로</th>
+            <th class="one wide">암호화여부</th>
+            <th class="one wide">암호화타입</th>
+            <th class="one wide">소스플래그</th>
+            <th class="one wide">타켓플래그</th>
+            <th class="one wide">타겟APP</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <!-- CONTENTS !-->
+        <tr th:each="transinfo : ${transinfolist}">
+        	<td th:text="${transinfo.trans_id}"></td> 
+        	<td th:text="${transinfo.trans_nm}"></td>
+        	<td th:text="${transinfo.trans_type}"></td>
+        	<td th:text="${transinfo.src_server_id}"></td>
+        	<td th:text="${transinfo.src_dir}"></td>
+        	<td th:text="${transinfo.tgt_server_id}"></td>
+        	<td th:text="${transinfo.tgt_dir}"></td>
+        	<td th:text="${transinfo.enc_yn}"></td>
+        	<td th:text="${transinfo.enc_type}"></td>
+        	<td th:text="${transinfo.src_flag_yn}"></td>
+        	<td th:text="${transinfo.tgt_flag_yn}"></td>
+        	<td th:text="${transinfo.tgt_app}"></td>
+     	</tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.filetransserver.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,5 +33,10 @@ public class ServerInfoService {
 		logger.info("Server_nm -> " + result.getServer_nm());
 		return result;
 	}
+	
+	public List<Server_Info> getServerList() {
+        List<Server_Info> entities = serverInfoRepository.findAll();
+        return entities;
+    }
 
 }

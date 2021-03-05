@@ -39,5 +39,10 @@ public class TransInfoService {
  		logger.info("Trans_nm -> " + result.getTrans_nm());
  		return result;
  	}    
+ 	
+ 	public List<Trans_Info> getTransInfoList() {
+        List<Trans_Info> entities = transInfoRepository.findAll();
+        return entities;
+    }
 
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>서버리스트</title>
+    <style>
+    	table{border-collapse: collapse}
+    	table, th, td{border: 1px solid black}
+    </style>
+    
+</head>
+<body>
+     <table>
+        <thead>
+        <tr>
+            <th class="one wide">서버 ID</th>
+            <th class="one wide">서버 명</th>
+            <th class="one wide">서버 IP</th>
+            <th class="one wide">서버 PORT</th>
+            <th class="one wide">전송타입</th>
+            <th class="one wide">FTP ID</th>
+            <th class="one wide">FTP 패스워드</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <!-- CONTENTS !-->
+        <tr th:each="server : ${serverlist}">
+        	<td th:text="${server.server_id}"></td> 
+        	<td th:text="${server.server_nm}"></td>
+        	<td th:text="${server.server_ip}"></td>
+        	<td th:text="${server.server_port}"></td>
+        	<td th:text="${server.trans_type}"></td>
+        	<td th:text="${server.ftp_id}"></td>
+        	<td th:text="${server.password}"></td>
+     	</tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
